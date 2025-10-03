@@ -1,0 +1,26 @@
+/**
+ * @param {number} numBottles
+ * @param {number} numExchange
+ * @return {number}
+ */
+var maxBottlesDrunk = function(numBottles, numExchange) {
+    let fullBottle = numBottles;
+    let emptyBottle = 0;
+    let barter = numExchange;
+    let drank = 0;
+    while(fullBottle > 0){
+        drank = drank + 1;
+        emptyBottle = emptyBottle + 1;
+        fullBottle = fullBottle - 1;
+        if(emptyBottle == barter){
+            fullBottle = fullBottle + 1;
+            emptyBottle = 0;
+            barter=barter+1
+        }
+    }
+    return drank;
+};
+
+let numBottles=13;
+let numExchange=6;
+console.log(maxBottlesDrunk(numBottles, numExchange));

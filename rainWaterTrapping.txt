@@ -1,0 +1,48 @@
+
+
+/**
+ * @param {number[][]} heightMap
+ * @return {number}
+ */
+var trapRainWater = function(heightMap) {
+    const m = heightMap.length;
+    if (m < 3) return 0;
+    const n = heightMap[0].length;
+    if (n < 3) return 0;
+    const pq = new MinPriorityQueue(node => node[0]); 
+
+    const visited = Array.from({ length: m }, () => Array(n).fill(false));
+    let totalWater = 0;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (i === 0 || i === m - 1 || j === 0 || j === n - 1) {
+                pq.enqueue([heightMap[i][j], i, j]);
+                visited[i][j] = true;
+            }
+        }
+    }
+
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    while (!pq.isEmpty()) {
+        const [height, r, c] = pq.dequeue(); 
+        for (const [dr, dc] of directions) {
+            const nr = r + dr;
+            const nc = c + dc;
+            if (nr >= 0 && nr < m && nc >= 0 && nc < n && !visited[nr][nc]) {
+                visited[nr][nc] = true;
+                const trappedWater = Math.max(0, height - heightMap[nr][nc]);
+                totalWater += trappedWater;
+                const newWallHeight = Math.max(height, heightMap[nr][nc]);
+                pq.enqueue([newWallHeight, nr, nc]);
+            }
+        }
+    }
+
+    return totalWater;
+};
+
+let heightMap = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]];
+console.log(trapRainWater(heightMap));
+
+

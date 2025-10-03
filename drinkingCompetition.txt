@@ -1,0 +1,25 @@
+/**
+ * @param {number} numBottles
+ * @param {number} numExchange
+ * @return {number}
+ */
+var numWaterBottles = function(numBottles, numExchange) {
+    let fullBottle = numBottles;
+    let emptyBottle = 0;
+    let barter = numExchange;
+    let drank = 0;
+    while(fullBottle > 0){
+        drank = drank + 1;
+        emptyBottle = emptyBottle + 1;
+        fullBottle = fullBottle - 1;
+        if(emptyBottle == barter){
+            fullBottle = fullBottle + 1;
+            emptyBottle = 0;
+        }
+    }
+    return drank;
+};
+
+let numBottles=9;
+let numExchange=3;
+console.log(numWaterBottles(numBottles, numExchange));
