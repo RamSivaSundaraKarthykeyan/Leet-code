@@ -22,5 +22,5 @@ var getSneakyNumbers = function(nums) {
                                                       }
                                                         }
 
-                                                          return duplicates;
+                                         return duplicates;
 };
